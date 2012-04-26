@@ -1,5 +1,42 @@
+$blue = #00b7ff
+
 body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-a
-  color: #00B7FF
+  margin 0
+  padding 0
+  background #333
+  color #fff
+  font 14px "Lucida Grande", Helvetica, Arial, sans-serif
+
+  a
+    color $blue
+  
+  & > *
+    width 600px
+    margin 0 auto
+    border-radius 6px
+  
+  header
+    padding 2px 20px
+    border 2px solid #000
+    border-top 0
+    border-radius 0 0 6px 6px
+    background #363
+    text-align center
+    font-size 18px
+  
+  #main
+    margin-top 10px
+    padding 20px
+    border 2px solid #000
+    background #363
+    text-align center
+
+  #log
+    max-height 48px
+    background #000
+    color #393
+    font-size 12px
+    overflow auto
+  
+  #engine-cache canvas
+    display none

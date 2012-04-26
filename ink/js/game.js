@@ -9,7 +9,7 @@ define(['engine/engine', 'entities/player'], function(Engine, Player){
 
 			self.world.createEntity(Player, {
 				name:       'player',
-				position:   self.world.toXY(1, 6)
+				position:   self.world.toXY(6, 6)
 			});
 		},
 		
