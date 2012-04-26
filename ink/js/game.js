@@ -2,7 +2,7 @@ define(['engine/engine', 'entities/player'], function(Engine, Player){
 	var	engine = new Engine({
 		screen:	$('#screen')[0],
 		
-		map:	'board',
+		map:	'home',
 		
 		init:	function(){
 			var self = this;

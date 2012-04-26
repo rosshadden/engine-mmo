@@ -28,7 +28,22 @@ app.configure('development', function(){
 	app.use(express.errorHandler());
 });
 
+////////////////////////////////////////////////////////////////
+//	ROUTES
 app.get('/', routes.index);
+
+////////////////////////////////////////////////////////////////
+//	AJAX
+app.get('/maps/:path', function(request, response){
+	try{
+		var map = require('./resources/maps/' + request.params.path + '.json');
+		
+		response.json(map);
+	}catch(e){
+		console.log('Error: A client tried to access map "%s".', request.params.path);
+		response.send('The map you seek does not exist.', 404);
+	}
+});
 
 ////////////////////////////////////////////////////////////////
 //	RUN
