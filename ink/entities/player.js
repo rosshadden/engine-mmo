@@ -33,6 +33,7 @@ define(['./entity', 'engine/draw'], function(Entity, draw){
 			}];
 			
 			self.currentFrame = 0;
+			self.interval = 6;
 			
 			self.interval = (function(interval){
 				var output;
@@ -48,7 +49,7 @@ define(['./entity', 'engine/draw'], function(Entity, draw){
 					output = interval;
 				}
 				return output;
-			})(properties.interval || 6);
+			})(properties.interval || self.interval || 4);
 		},
 		
 		move:	function(dir){

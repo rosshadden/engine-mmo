@@ -17,6 +17,12 @@ define(['engine/engine', 'entities/player'], function(Engine, Player){
 		
 		paint:	function(){}
 	});
+	
+	engine.deferred.done(function(game){
+		game.input.mouse.on('click', function(point){
+			console.log('LOG:','Mouse clicked at', point.x, point.y);
+		});
+	});
 
 ////////////////////////////////
 //	RUN
