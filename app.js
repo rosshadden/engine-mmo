@@ -4,6 +4,8 @@ var PORT = +(process.argv[2] || process.env.PORT || 3000),
 	http = require('http');
 
 var app = express();
+	
+var	engine = require('./engine/engine.js')(app);
 
 app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -17,6 +19,9 @@ app.configure(function(){
 	app.use(express.cookieParser('Shhhh! IT IS SECRET.'));
 	app.use(express.session());
 	app.use(app.router);
+	
+	//TODO:	Move this to engine.js.
+	app.use('/engine', express.static(__dirname + '/engine/client'));
 });
 
 app.configure('development', function(){
