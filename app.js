@@ -9,9 +9,9 @@ app.configure(function(){
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.favicon());
-	app.use(express.logger('dev'));
-	app.use(require('stylus').middleware({ src: __dirname + '/public' }));
-	app.use(express.static(__dirname + '/public'));
+	//app.use(express.logger('dev'));
+	app.use(require('stylus').middleware({ src: __dirname + '/ink' }));
+	app.use(express.static(__dirname + '/ink'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser('Shhhh! IT IS SECRET.'));
