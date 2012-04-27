@@ -5,7 +5,7 @@ var PORT = +(process.argv[2] || process.env.PORT || 3000),
 
 var app = express();
 	
-var	engine = require('./engine/engine.js')(app);
+var	engine = require('./engine')(app);
 
 app.configure(function(){
 	app.set('views', __dirname + '/views');
