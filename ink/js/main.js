@@ -4,10 +4,28 @@
 require.config({
 	paths:	{
 		'engine':	'/engine',
-		'entities':	'/entities'
+		'entities':	'/entities',
+		'scenes':	'./scenes'
 	}
 });
 
-require(['engine/index'], function(engine){
+require([
+	'engine/index',
+	'scenes/index'
+], function(engine, scenes){
 	window.engine = engine;
+	
+	engine.canvas = '#screen';
+	
+	scenes(engine);
+	
+	engine.ready(function(){
+		engine.sys.init(engine.canvas)
+		.attr({
+			clearColor:	'#336'
+		})
+		.start();
+		
+		engine.scene('home').enter();
+	});
 });
