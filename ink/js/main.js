@@ -8,6 +8,6 @@ require.config({
 	}
 });
 
-require(['engine/engine'], function(engine){
+require(['engine/index'], function(engine){
 	window.engine = engine;
 });
