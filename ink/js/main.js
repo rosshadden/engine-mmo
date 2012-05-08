@@ -4,20 +4,21 @@
 require.config({
 	paths:	{
 		'engine':	'/engine',
-		'entities':	'/entities',
-		'scenes':	'./scenes'
+		'entities':	'/entities'
 	}
 });
 
 require([
 	'engine/index',
-	'scenes/index'
-], function(engine, scenes){
+	'./scenes/index',
+	'./displays/index'
+], function(engine, scenes, displays){
 	window.engine = engine;
 	
 	engine.canvas = '#screen';
 	
 	scenes(engine);
+	displays(engine);
 	
 	engine.ready(function(){
 		engine.sys.init(engine.canvas)

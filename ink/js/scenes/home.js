@@ -37,14 +37,6 @@ define(function(){
 				alignHor:	0,
 				alignVer:	25
 			});
-
-			//credits
-			engine.e('text')
-			.attr({
-				text:		'http://www.entityjs.com',
-				alignBottom:-5,
-				alignLeft:	5
-			});
 		})
 		.exit(function(){
 			//remove all draw objects
