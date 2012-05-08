@@ -11,14 +11,16 @@ require.config({
 require([
 	'engine/index',
 	'./scenes/index',
-	'./displays/index'
-], function(engine, scenes, displays){
+	'./displays/index',
+	'./controls/index'
+], function(engine, scenes, displays, controls){
 	window.engine = engine;
 	
 	engine.canvas = '#screen';
 	
 	scenes(engine);
 	displays(engine);
+	controls(engine);
 	
 	engine.ready(function(){
 		engine.sys.init(engine.canvas)
