@@ -10,22 +10,18 @@ require.config({
 
 require([
 	'engine/index',
-	'./scenes/index',
-	'./displays/index',
-	'./controls/index'
-], function(engine, scenes, displays, controls){
+	'./scenes/index'
+], function(engine, scenes){
 	window.engine = engine;
 	
 	engine.canvas = '#screen';
 	
 	scenes(engine);
-	displays(engine);
-	controls(engine);
 	
 	engine.ready(function(){
 		engine.sys.init(engine.canvas)
 		.attr({
-			clearColor:	'#336'
+			clearColor:	'#ccc'
 		})
 		.start();
 		
