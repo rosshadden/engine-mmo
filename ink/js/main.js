@@ -9,17 +9,25 @@ require.config({
 
 require([
 	'engine/index',
-	'./scenes/index'
-], function(engine, scenes){
+	'./scenes/index',
+	'./entities/index'
+], function(engine, scenes, entities){
 	window.engine = engine;
 	
 	engine.config = {
 		version:	0.01,
 		
-		canvas:	'#screen'
+		canvas:	'#screen',
+		
+		assets:	{
+			images:	[
+				'images/characters/cecil.png'
+			]
+		}
 	};
 	
 	scenes(engine);
+	entities(engine);
 	
 	engine.ready(function(){
 		engine.sys.init(engine.config.canvas).start();

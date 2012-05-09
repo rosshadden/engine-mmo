@@ -6,7 +6,7 @@ define(function(){
 			
 			engine.sys.clearColor = '#ccc';
 			
-			engine.load([])
+			engine.load(engine.config.assets)
 			.complete(function(){
 				engine.scene('game').enter();
 			});

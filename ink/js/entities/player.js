@@ -1,16 +1,14 @@
 define(function(){
 	return function(engine){
 		engine.c('player')
-		.require('images/characters/cecil.png sprite')
-		.namespace({
+		.requires('sprite images/characters/cecil.png update')
+		.defines({
 			update:	function(tick){
-				this.screen.setPos(this);
-				
-				console.log('updating');
 			}
-		})
-		.extend({
 		}).init(function(){
+			this.sizeX = 200;
+			this.sizeY = 200;
+			
 			this.on('update', this.update);
 		});
 	};
