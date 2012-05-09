@@ -22,12 +22,8 @@ require([
 	scenes(engine);
 	
 	engine.ready(function(){
-		engine.sys.init(engine.config.canvas)
-		.attr({
-			clearColor:	'#ccc'
-		})
-		.start();
+		engine.sys.init(engine.config.canvas).start();
 		
-		engine.scene('game').enter();
+		engine.scene('load').enter();
 	});
 });

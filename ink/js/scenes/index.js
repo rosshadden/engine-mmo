@@ -1,7 +1,9 @@
 define([
+	'./load',
 	'./game'
-], function(game){
+], function(load, game){
 	return function(engine){
+		load(engine);
 		game(engine);
 	};
 });
