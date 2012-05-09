@@ -3,8 +3,7 @@
 //	and it is very useful inside the engine.
 require.config({
 	paths:	{
-		'engine':	'/engine',
-		'entities':	'/entities'
+		'engine':	'/engine'
 	}
 });
 
@@ -14,17 +13,21 @@ require([
 ], function(engine, scenes){
 	window.engine = engine;
 	
-	engine.canvas = '#screen';
+	engine.config = {
+		version:	0.01,
+		
+		canvas:	'#screen'
+	};
 	
 	scenes(engine);
 	
 	engine.ready(function(){
-		engine.sys.init(engine.canvas)
+		engine.sys.init(engine.config.canvas)
 		.attr({
 			clearColor:	'#ccc'
 		})
 		.start();
 		
-		engine.scene('home').enter();
+		engine.scene('game').enter();
 	});
 });
