@@ -57,3 +57,14 @@ app.get('/maps/:path', function(request, response){
 app.server.listen(PORT);
 
 console.log("Server started on port %d [%s]", PORT, app.settings.env);
+
+////////////////////////////////////////////////////////////////
+//	EVENTS
+engine.network.on('moveRequest', function(position){
+	var self = this,
+		id = self.handshake.sessionID;
+	
+	engine.network.with(id)
+		.emit('move', position)
+		.broadcast('move', position);
+});

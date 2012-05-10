@@ -13,7 +13,7 @@ define(function(){
 		});
 
 		engine.c('player')
-		.requires('sprite update animate characters.png')
+		.requires('sprite update animate net characters.png')
 		.defines({
 			sizeX:	25,
 			sizeY:	25,
@@ -26,7 +26,14 @@ define(function(){
 			
 			speed:	4,
 			
-			moveTo:	function(x, y){
+			moveRequest:	function(position){
+				this.emit('moveRequest', position);
+			},
+			
+			moveTo:	function(position){
+				var x = position.x,
+					y = position.y;
+				
 				this.destinationX = x * engine.tile.sizeX + this.regX || this.posX;
 				this.destinationY = y * engine.tile.sizeY + this.regY || this.posY;
 			},
@@ -49,13 +56,15 @@ define(function(){
 				}
 			}
 		}).init(function(){
-			this.posX = engine.sys.sizeX / 2;
-			this.posY = engine.sys.sizeY / 2;
+			var self = this;
 			
-			this.destinationX = this.posX;
-			this.destinationY = this.posY;
+			self.posX = engine.sys.sizeX / 2;
+			self.posY = engine.sys.sizeY / 2;
 			
-			this.animations = {
+			self.destinationX = self.posX;
+			self.destinationY = self.posY;
+			
+			self.animations = {
 				idle:	[100, [0, 1], 100],
 				up:		[100, [4, 5], 100],
 				down:	[100, [0, 1], 100],
@@ -63,9 +72,23 @@ define(function(){
 				right:	[100, [6, 7], 100]
 			};
 			
-			this.on('update', this.update);
+			self.on('update', self.update);
 			
-			this.animate('idle');
+			self.on('click', function(x, y){
+				x = ~~(x / engine.tile.sizeX);
+				y = ~~(y / engine.tile.sizeY);
+				
+				self.moveRequest({
+					x:	x,
+					y:	y
+				});
+			});
+			
+			self.bind('move', function(position){
+				self.moveTo(position);
+			});
+			
+			self.animate('idle');
 		});
 	};
 });
