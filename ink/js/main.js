@@ -12,10 +12,12 @@ require([
 	'./scenes/index',
 	'./entities/index'
 ], function(engine, scenes, entities){
+	'use strict';
+	
 	window.engine = engine;
 	
 	engine.config = {
-		version:	0.01,
+		version:	0.02,
 		
 		canvas:	'#screen',
 		
