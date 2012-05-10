@@ -2,7 +2,7 @@ define(function(){
 	return function(engine){
 		engine.scene('game')
 		.enter(function(){
-			engine.e('player')
+			window.me = engine.e('player')
 			.attr({
 				id:		'me'
 			});

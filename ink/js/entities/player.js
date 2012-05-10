@@ -11,27 +11,30 @@ define(function(){
 		});
 
 		engine.c('player')
-		.requires('sprite cecil.png update animate')
+		.requires('sprite update animate characters.png')
 		.defines({
+			sizeX:	25,
+			sizeY:	25,
+			
+			frameX:	25,
+			frameY:	25,
+			
+			regX:	24 / 2,
+			regY:	24 / 2,
+			
 			update:	function(tick){
-				this.animate('idle');
 			}
 		}).init(function(){
-			this.sizeX = engine.tile.sizeX;
-			this.sizeY = engine.tile.sizeY;
-
-			//setup registration point
-			this.regX = this.sizeX * 0.5;
-			this.regY = this.sizeY * 0.5;
-			
-			this.posX = 110;
-			this.posY = 3;
+			this.posX = engine.sys.sizeX / 2;
+			this.posY = engine.sys.sizeY / 2;
 			
 			this.animations = {
-				idle:	[600, [0, 1], -1]
+				idle:	[100, [0, 1, 2, 3, 4], 100]
 			};
 			
 			this.on('update', this.update);
+			
+			this.animate('idle');
 		});
 	};
 });

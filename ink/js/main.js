@@ -21,7 +21,8 @@ require([
 		
 		assets:	{
 			images:	[
-				'images/characters/cecil.png'
+				'images/characters/cecil.png',
+				'images/characters/characters.png'
 			]
 		}
 	};
