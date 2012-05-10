@@ -22,7 +22,7 @@ define(function(){
 			regX:	24 / 2,
 			regY:	24 / 2,
 			
-			speed:	2,
+			speed:	4,
 			
 			moveTo:	function(x, y){
 				this.destinationX = x * engine.tile.sizeX + this.regX || this.posX;
