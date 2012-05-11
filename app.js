@@ -40,7 +40,7 @@ app.configure('development', function(){
 app.get('/', function(request, response, next){
 	var id = request.sessionID;
 	
-	engine.events.emitter.once('connect', function(connectedID){
+	var onConnect = function(connectedID){
 		var data,
 			network = engine.network.with(id);
 		
@@ -58,8 +58,12 @@ app.get('/', function(request, response, next){
 			data.me = true;
 			
 			network.emit('join', data);
+			
+			engine.events.emitter.removeListener('connect', onConnect);
 		}
-	});
+	};
+	
+	engine.events.emitter.on('connect', onConnect);
 	
 	next();
 }, routes.index);
@@ -78,14 +82,17 @@ app.get('/maps/:path', function(request, response){
 });
 
 app.get('/get/players', function(request, response){
-	var players = [],
+	var id = request.sessionID,
+		players = [],
 		playerList = engine.players.get();
 	
 	for(var player in playerList){
-		players.push({
-			id:			player,
-			position:	playerList[player].position
-		});
+		if(player !== id){
+			players.push({
+				id:			player,
+				position:	playerList[player].position
+			});
+		}
 	}
 	
 	response.json(players);

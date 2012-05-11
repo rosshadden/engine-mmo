@@ -38,6 +38,11 @@
 				this.destinationY = y * Σ.tile.sizeY + this.regY || this.posY;
 			},
 			
+			warp:	function(position){
+				this.posX = this.destinationX = position.x * Σ.tile.sizeX + this.regX;
+				this.posY = this.destinationY = position.y * Σ.tile.sizeY + this.regY;
+			},
+			
 			update:	function(tick){
 				if(this.destinationX - this.posX > this.speed){
 					this.posX += this.speed;

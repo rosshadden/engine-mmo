@@ -11,13 +11,9 @@
 				newPlayer = Σ.e('player');
 			}
 			
-			newPlayer.attr({
-				id:				player.id,
-				posX:			player.position.x * Σ.tile.sizeX,
-				posY:			player.position.y * Σ.tile.sizeY,
-				destinationX:	player.position.x * Σ.tile.sizeX,
-				destinationY:	player.position.y * Σ.tile.sizeY
-			});
+			newPlayer
+			.attr('id', player.id)
+			.warp(player.position);
 			
 			if(player.me){
 				newPlayer
