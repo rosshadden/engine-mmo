@@ -60,6 +60,10 @@ console.log("Server started on port %d [%s]", PORT, app.settings.env);
 
 ////////////////////////////////////////////////////////////////
 //	EVENTS
+engine.network.on('connect', function(id){
+	console.log('PLAYER', id);
+});
+
 engine.network.on('moveRequest', function(position){
 	var self = this,
 		id = self.handshake.sessionID;
