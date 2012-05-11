@@ -4,14 +4,11 @@ define(function(){
 	return function(engine){
 		engine.scene('game')
 		.enter(function(){
-			window.me = engine.e('player mouse')
-			.attr({
-				id:		'me'
-			});
+			window.me = engine.e('player mouse');
 			
-			/*engine.network.on('join', function(position){
+			engine.network.on('join', function(position){
 				engine.utilities.log('Player joined.', position);
-			});*/
+			});
 			
 			engine.utilities.log('Game entered.');
 		});

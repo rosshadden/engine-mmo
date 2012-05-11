@@ -60,8 +60,18 @@ console.log("Server started on port %d [%s]", PORT, app.settings.env);
 
 ////////////////////////////////////////////////////////////////
 //	EVENTS
-engine.network.on('connect', function(id){
-	console.log('PLAYER', id);
+engine.events.emitter.on('connect', function(id){
+	engine.network.with(id)
+		.emit('set', {
+			id:	id
+		})
+		.broadcast('join', {
+			id:	id,
+			position: {
+				x:	5,
+				y:	5
+			}
+		});
 });
 
 engine.network.on('moveRequest', function(position){

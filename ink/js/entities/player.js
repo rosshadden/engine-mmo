@@ -27,7 +27,7 @@ define(function(){
 			speed:	4,
 			
 			moveRequest:	function(position){
-				this.emit('moveRequest', position);
+				this.net_emit('moveRequest', position);
 			},
 			
 			moveTo:	function(position){
@@ -84,7 +84,11 @@ define(function(){
 				});
 			});
 			
-			self.bind('move', function(position){
+			self.net_on('set', function(params){
+				self.attr(params);
+			});
+			
+			self.net_on('move', function(position){
 				self.moveTo(position);
 			});
 			
