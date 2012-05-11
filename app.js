@@ -78,6 +78,23 @@ app.get('/maps/:path', function(request, response){
 	}
 });
 
+app.get('/get/players', function(request, response){
+	var players = [],
+		playerList = engine.players.get();
+	
+	for(var player in playerList){
+		players.push({
+			id:		player,
+			position: {
+				x:	10,
+				y:	10
+			}
+		});
+	}
+	
+	response.json(players);
+});
+
 ////////////////////////////////////////////////////////////////
 //	RUN
 app.server.listen(PORT);

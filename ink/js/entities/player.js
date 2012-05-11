@@ -74,16 +74,6 @@
 			
 			self.on('update', self.update);
 			
-			self.on('click', function(x, y){
-				x = ~~(x / Σ.tile.sizeX);
-				y = ~~(y / Σ.tile.sizeY);
-				
-				self.moveRequest({
-					x:	x,
-					y:	y
-				});
-			});
-			
 			self.net_on('set', function(params){
 				self.attr(params);
 			});
