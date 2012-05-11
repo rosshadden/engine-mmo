@@ -37,7 +37,33 @@ app.configure('development', function(){
 
 ////////////////////////////////////////////////////////////////
 //	ROUTES
-app.get('/', routes.index);
+app.get('/', function(request, response, next){
+	var id = request.sessionID,
+		player = engine.players.get(id);
+	
+	engine.events.emitter.once('connect', function(connectedID){
+		var data,
+			network = engine.network.with(id);
+		
+		if(connectedID === id){
+			data = {
+				id:	id,
+				position: {
+					x:	5,
+					y:	5
+				}
+			};
+			
+			network.broadcast('join', data);
+			
+			data.me = true;
+			
+			network.emit('join', data);
+		}
+	});
+	
+	next();
+}, routes.index);
 
 ////////////////////////////////////////////////////////////////
 //	AJAX
@@ -60,25 +86,12 @@ console.log("Server started on port %d [%s]", PORT, app.settings.env);
 
 ////////////////////////////////////////////////////////////////
 //	EVENTS
-engine.events.emitter.on('connect', function(id){
-	engine.network.with(id)
-		.emit('set', {
-			id:	id
-		})
-		.broadcast('join', {
-			id:	id,
-			position: {
-				x:	5,
-				y:	5
-			}
-		});
-});
-
 engine.network.on('moveRequest', function(position){
 	var self = this,
 		id = self.handshake.sessionID;
 	
-	engine.network.with(id)
-		.emit('move', position)
-		.broadcast('move', position);
+	engine.network.emit('move', {
+		id:			id,
+		position:	position
+	});
 });

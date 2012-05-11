@@ -88,8 +88,10 @@
 				self.attr(params);
 			});
 			
-			self.net_on('move', function(position){
-				self.moveTo(position);
+			self.net_on('move', function(player){
+				if(player.id === self.id){
+					self.moveTo(player.position);
+				}
 			});
 			
 			self.animate('idle');

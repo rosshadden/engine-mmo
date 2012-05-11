@@ -14,7 +14,7 @@ require([
 ], function(Σ, scenes, entities){
 	'use strict';
 	
-	window.engine = Σ;
+	window.engine = window.Σ = Σ;
 	
 	Σ.config = {
 		version:	0.02,
