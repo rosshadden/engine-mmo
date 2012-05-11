@@ -1,4 +1,4 @@
-//	I'd much rather not have the dev have to do all this,
+﻿//	I'd much rather not have the dev have to do all this,
 //	but I can't think of another way to include require.js,
 //	and it is very useful inside the engine.
 require.config({
@@ -11,12 +11,12 @@ require([
 	'engine/index',
 	'./scenes/index',
 	'./entities/index'
-], function(engine, scenes, entities){
+], function(Σ, scenes, entities){
 	'use strict';
 	
-	window.engine = engine;
+	window.engine = Σ;
 	
-	engine.config = {
+	Σ.config = {
 		version:	0.02,
 		
 		canvas:	'#screen',
@@ -29,12 +29,12 @@ require([
 		}
 	};
 	
-	scenes(engine);
-	entities(engine);
+	scenes(Σ);
+	entities(Σ);
 	
-	engine.ready(function(){
-		engine.sys.init(engine.config.canvas).start();
+	Σ.ready(function(){
+		Σ.sys.init(Σ.config.canvas).start();
 		
-		engine.scene('load').enter();
+		Σ.scene('load').enter();
 	});
 });

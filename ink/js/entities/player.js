@@ -1,8 +1,8 @@
-define(function(){
+﻿define(function(){
 	'use strict';
 	
-	return function(engine){
-		engine.c('animate')
+	return function(Σ){
+		Σ.c('animate')
 		.requires('flicker')
 		.defines({
 			animate:function(name){
@@ -12,7 +12,7 @@ define(function(){
 			}
 		});
 
-		engine.c('player')
+		Σ.c('player')
 		.requires('sprite update animate net characters.png')
 		.defines({
 			sizeX:	25,
@@ -34,8 +34,8 @@ define(function(){
 				var x = position.x,
 					y = position.y;
 				
-				this.destinationX = x * engine.tile.sizeX + this.regX || this.posX;
-				this.destinationY = y * engine.tile.sizeY + this.regY || this.posY;
+				this.destinationX = x * Σ.tile.sizeX + this.regX || this.posX;
+				this.destinationY = y * Σ.tile.sizeY + this.regY || this.posY;
 			},
 			
 			update:	function(tick){
@@ -58,8 +58,8 @@ define(function(){
 		}).init(function(){
 			var self = this;
 			
-			self.posX = engine.sys.sizeX / 2;
-			self.posY = engine.sys.sizeY / 2;
+			self.posX = Σ.sys.sizeX / 2;
+			self.posY = Σ.sys.sizeY / 2;
 			
 			self.destinationX = self.posX;
 			self.destinationY = self.posY;
@@ -75,8 +75,8 @@ define(function(){
 			self.on('update', self.update);
 			
 			self.on('click', function(x, y){
-				x = ~~(x / engine.tile.sizeX);
-				y = ~~(y / engine.tile.sizeY);
+				x = ~~(x / Σ.tile.sizeX);
+				y = ~~(y / Σ.tile.sizeY);
 				
 				self.moveRequest({
 					x:	x,

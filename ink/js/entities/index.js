@@ -1,9 +1,9 @@
-define([
+﻿define([
 	'./player'
 ], function(player){
 	'use strict';
 	
-	return function(engine){
-		player(engine);
+	return function(Σ){
+		player(Σ);
 	};
 });

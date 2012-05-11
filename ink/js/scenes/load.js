@@ -1,16 +1,16 @@
-define(function(){
+﻿define(function(){
 	'use strict';
 	
-	return function(engine){
-		engine.scene('load')
+	return function(Σ){
+		Σ.scene('load')
 		.enter(function(){
-			engine.tile.sizeX = engine.tile.sizeY = 25;
+			Σ.tile.sizeX = Σ.tile.sizeY = 25;
 			
-			engine.sys.clearColor = '#ccc';
+			Σ.sys.clearColor = '#ccc';
 			
-			engine.load(engine.config.assets)
+			Σ.load(Σ.config.assets)
 			.complete(function(){
-				engine.scene('game').enter();
+				Σ.scene('game').enter();
 			});
 		});
 	};

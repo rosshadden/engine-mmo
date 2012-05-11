@@ -1,16 +1,16 @@
-define(function(){
+﻿define(function(){
 	'use strict';
 	
-	return function(engine){
-		engine.scene('game')
+	return function(Σ){
+		Σ.scene('game')
 		.enter(function(){
-			window.me = engine.e('player mouse');
+			window.me = Σ.e('player mouse');
 			
-			engine.network.on('join', function(position){
-				engine.utilities.log('Player joined.', position);
+			Σ.network.on('join', function(position){
+				Σ.utilities.log('Player joined.', position);
 			});
 			
-			engine.utilities.log('Game entered.');
+			Σ.utilities.log('Game entered.');
 		});
 	};
 });
