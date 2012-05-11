@@ -38,8 +38,7 @@ app.configure('development', function(){
 ////////////////////////////////////////////////////////////////
 //	ROUTES
 app.get('/', function(request, response, next){
-	var id = request.sessionID,
-		player = engine.players.get(id);
+	var id = request.sessionID;
 	
 	engine.events.emitter.once('connect', function(connectedID){
 		var data,
@@ -48,7 +47,7 @@ app.get('/', function(request, response, next){
 		if(connectedID === id){
 			data = {
 				id:	id,
-				position: {
+				position: engine.players.get(id).position || {
 					x:	5,
 					y:	5
 				}
@@ -84,11 +83,8 @@ app.get('/get/players', function(request, response){
 	
 	for(var player in playerList){
 		players.push({
-			id:		player,
-			position: {
-				x:	10,
-				y:	10
-			}
+			id:			player,
+			position:	playerList[player].position
 		});
 	}
 	
@@ -105,7 +101,10 @@ console.log("Server started on port %d [%s]", PORT, app.settings.env);
 //	EVENTS
 engine.network.on('moveRequest', function(position){
 	var self = this,
-		id = self.handshake.sessionID;
+		id = self.handshake.sessionID,
+		player = engine.players.get(id);
+	
+	player.position = position;
 	
 	engine.network.emit('move', {
 		id:			id,
