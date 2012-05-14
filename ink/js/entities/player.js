@@ -4,16 +4,20 @@
 	return function(Σ){
 		Σ.c('animate')
 		.requires('flicker')
+		.namespaces({
+			current:	''
+		})
 		.defines({
-			animate:function(name){
+			animate:	function(name){
 				var a = this.animations[name].slice();
 				a.push(name);
+				this.animate_current = name;
 				return this.flicker.apply(this, a);
 			}
 		});
 
 		Σ.c('player')
-		.requires('sprite update animate net characters.png')
+		.requires('sprite animate update flicker net characters.png')
 		.defines({
 			sizeX:	25,
 			sizeY:	25,
@@ -44,37 +48,37 @@
 			},
 			
 			update:	function(tick){
+				var dir;
+				
 				if(this.destinationX - this.posX > this.speed){
 					this.posX += this.speed;
-					this.animate('right');
+					dir = 'right';
 				}else if(this.destinationX - this.posX < -this.speed){
 					this.posX -= this.speed;
-					this.animate('left');
+					dir = 'left';
 				}else if(this.destinationY - this.posY > this.speed){
 					this.posY += this.speed;
-					this.animate('down');
+					dir = 'down';
 				}else if(this.destinationY - this.posY < -this.speed){
 					this.posY -= this.speed;
-					this.animate('up');
+					dir = 'up';
 				}else{
-					this.animate('idle');
+					dir = 'idle';
+				}
+
+				if(dir !== this.animate_current){
+					this.animate(dir);
 				}
 			}
 		}).init(function(){
 			var self = this;
 			
-			self.posX = Σ.sys.sizeX / 2;
-			self.posY = Σ.sys.sizeY / 2;
-			
-			self.destinationX = self.posX;
-			self.destinationY = self.posY;
-			
 			self.animations = {
-				idle:	[100, [0, 1], 100],
-				up:		[100, [4, 5], 100],
-				down:	[100, [0, 1], 100],
-				left:	[100, [2, 3], 100],
-				right:	[100, [6, 7], 100]
+				idle:	[1e3, [0, 1], -1],
+				up:		[200, [4, 5], -1],
+				down:	[200, [0, 1], -1],
+				left:	[200, [2, 3], -1],
+				right:	[200, [6, 7], -1]
 			};
 			
 			self.on('update', self.update);

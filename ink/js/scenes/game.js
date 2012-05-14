@@ -16,7 +16,7 @@
 			.warp(player.position);
 			
 			if(player.me){
-				newPlayer
+				window.me = newPlayer
 				.comp('mouse')
 				.on('click', function(x, y){
 					x = ~~(x / Σ.tile.sizeX);
