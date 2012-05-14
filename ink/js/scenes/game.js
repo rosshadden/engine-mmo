@@ -33,7 +33,7 @@
 		Σ.c('map')
 		.defines({
 			load:	function(name){
-				Σ.network.get('/maps/' + name, function(map){
+				return Σ.network.get('/maps/' + name, function(map){
 					var sheet;
 					
 					console.log('map', map);
@@ -70,22 +70,24 @@
 			
 			var map = Σ.e('map');
 			
-			map.load('home');
-			
-			Σ.e('treeGreen')
-			.attr({
-				sizeX:	64,
-				sizeY:	80,
-				posX:	50,
-				posY:	200
-			});
-			
-			Σ.e('treeRed')
-			.attr({
-				sizeX:	64,
-				sizeY:	80,
-				posX:	250,
-				posY:	200
+			map.load('home')
+			.done(function(map){
+				console.log('now', map);
+				Σ.e('treeGreen')
+				.attr({
+					sizeX:	64,
+					sizeY:	80,
+					posX:	50,
+					posY:	200
+				});
+				
+				Σ.e('treeRed')
+				.attr({
+					sizeX:	64,
+					sizeY:	80,
+					posX:	250,
+					posY:	200
+				});
 			});
 		});
 	};
