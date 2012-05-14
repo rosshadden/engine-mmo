@@ -66,16 +66,16 @@
 			update:	function(tick){
 				var dir;
 				
-				if(this.destinationX - this.posX > this.speed){
+				if(this.destinationX - this.posX >= this.speed){
 					this.posX += this.speed;
 					dir = 'right';
-				}else if(this.destinationX - this.posX < -this.speed){
+				}else if(this.destinationX - this.posX <= -this.speed){
 					this.posX -= this.speed;
 					dir = 'left';
-				}else if(this.destinationY - this.posY > this.speed){
+				}else if(this.destinationY - this.posY >= this.speed){
 					this.posY += this.speed;
 					dir = 'down';
-				}else if(this.destinationY - this.posY < -this.speed){
+				}else if(this.destinationY - this.posY <= -this.speed){
 					this.posY -= this.speed;
 					dir = 'up';
 				}else{
