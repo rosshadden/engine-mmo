@@ -6,8 +6,6 @@
 		.enter(function(){
 			Σ.tile.sizeX = Σ.tile.sizeY = 25;
 			
-			Σ.sys.clearColor = '#ccc';
-			
 			Σ.load(Σ.config.assets)
 			.complete(function(){
 				Σ.scene('game').enter();

@@ -7,8 +7,31 @@
 			"height":	16
 		}
 	},
+	
 	"background": {
-		"color":	"#996633"
+		"color":	"#987"
 	},
-	"tiles":	[]
+	
+	"entities": {
+		"zelda.png": {
+			"tree":{
+				"sizeX":	64,
+				"sizeY":	80
+			},
+			
+			"treeGreen": {
+				"requires":	["tree"],
+				"sizeX":	64,
+				"sizeY":	80,
+				"frameX":	0,
+				"frameY":	0
+			}
+		}
+	},
+	
+	"tiles":	[{
+		"type":	"treeGreen",
+		"posX":	50,
+		"posY":	200
+	}]
 }

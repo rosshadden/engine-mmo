@@ -32,37 +32,28 @@
 		
 		Σ.c('map')
 		.defines({
-			build:	function(){
-				this.placeTiles();
-			},
+			load:	function(name){
+				Σ.network.get('/maps/' + name, function(map){
+					var sheet;
+					
+					console.log('map', map);
 			
-			placeTiles:	function(){
-				var map = [
-					[1,2,4,5,0,3,4,5,6,7],
-					[1,2,4,5,0,3,4,5,6,7],
-					[1,2,4,5,0,3,4,5,6,7],
-					[1,2,4,5,0,3,4,5,6,7]
-				];
-				
-				var v,
-					lengthY = map.length,
-					lengthX = map[0].length;
-				for(var y = 0; y < lengthY; y++){
-					for(var x = 0; x < lengthX; x++){
-						v = map[y][x];
+					Σ.sys.clearColor = map.background.color;
+					
+					for(var resource in map.entities){
+						sheet = {};
 						
-						if(v){
-							v--;
-							
-							Σ.e('tile zelda.png').attr({
-								tileX:	x,
-								tileY:	y,
-								frame:	v
-							});
+						for(var entity in map.entities[resource]){
+							sheet[entity] = {
+								frameX:	map.entities[resource][entity].frameX,
+								frameY:	map.entities[resource][entity].frameY
+							};
 						}
+						
+						Σ.utilities.sheet(sheet, resource);
 					}
-				}
-			},
+				});
+			}
 		});
 		
 		Σ.scene('game')
@@ -77,15 +68,23 @@
 				});
 			});
 			
-			Σ.utilities.sheet({
-				tree:	[0, 0]
-			}, 'zelda.png')
+			var map = Σ.e('map');
 			
-			Σ.e('tree')
+			map.load('home');
+			
+			Σ.e('treeGreen')
 			.attr({
 				sizeX:	64,
 				sizeY:	80,
 				posX:	50,
+				posY:	200
+			});
+			
+			Σ.e('treeRed')
+			.attr({
+				sizeX:	64,
+				sizeY:	80,
+				posX:	250,
 				posY:	200
 			});
 		});
