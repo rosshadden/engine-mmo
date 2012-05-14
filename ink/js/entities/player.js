@@ -2,22 +2,38 @@
 	'use strict';
 	
 	return function(Σ){
-		Σ.c('animate')
+		Σ.c('animation')
 		.requires('flicker')
 		.namespaces({
-			current:	''
+			current:	'',
+			
+			list:	{},
+			
+			add:	function(key, value){
+				if(Σ.is(value)){
+					this.list[key] = value;
+				}else{
+					for(var item in key){
+						this.list[item] = key[item];
+					}
+				}
+				
+				return this;
+			}
 		})
 		.defines({
 			animate:	function(name){
-				var a = this.animations[name].slice();
-				a.push(name);
-				this.animate_current = name;
-				return this.flicker.apply(this, a);
+				var animation = this.animation.list[name].slice();
+				
+				animation.push(name);
+				this.animation.current = name;
+				
+				return this.flicker.apply(this, animation);
 			}
 		});
 
 		Σ.c('player')
-		.requires('sprite animate update flicker net characters.png')
+		.requires('sprite animation update flicker net characters.png')
 		.defines({
 			sizeX:	25,
 			sizeY:	25,
@@ -31,7 +47,7 @@
 			speed:	4,
 			
 			moveRequest:	function(position){
-				this.net_emit('moveRequest', position);
+				this.net.emit('moveRequest', position);
 			},
 			
 			moveTo:	function(position){
@@ -66,28 +82,28 @@
 					dir = 'idle';
 				}
 
-				if(dir !== this.animate_current){
+				if(dir !== this.animation.current){
 					this.animate(dir);
 				}
 			}
 		}).init(function(){
 			var self = this;
 			
-			self.animations = {
+			self.animation.add({
 				idle:	[1e3, [0, 1], -1],
 				up:		[200, [4, 5], -1],
 				down:	[200, [0, 1], -1],
 				left:	[200, [2, 3], -1],
 				right:	[200, [6, 7], -1]
-			};
+			});
 			
 			self.on('update', self.update);
 			
-			self.net_on('set', function(params){
+			self.net.on('set', function(params){
 				self.attr(params);
 			});
 			
-			self.net_on('move', function(player){
+			self.net.on('move', function(player){
 				if(player.id === self.id){
 					self.moveTo(player.position);
 				}
