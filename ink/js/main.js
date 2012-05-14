@@ -24,7 +24,10 @@ require([
 		assets:	{
 			images:	[
 				'images/characters/cecil.png',
-				'images/characters/characters.png'
+				'images/characters/characters.png',
+				'images/map/zelda.png',
+				'images/map/pokemon.png',
+				'images/map/wall.jpg'
 			]
 		}
 	};
