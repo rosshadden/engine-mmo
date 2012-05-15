@@ -1,0 +1,36 @@
+{
+	"properties": {
+		"name":	"graveyard",
+		"description":	"Where the zombies are.",
+		"dimensions": {
+			"width":	10,
+			"height":	10
+		}
+	},
+	
+	"background": {
+		"color":	"#827040"
+	},
+	
+	"tiles":	[{
+		"type":	"tree-green",
+		"posX":	150,
+		"posY":	20
+	},{
+		"type":	"tree-red",
+		"posX":	200,
+		"posY":	100
+	},{
+		"type":	"tree-green",
+		"posX":	150,
+		"posY":	150
+	},{
+		"type":	"tree-gold",
+		"posX":	400,
+		"posY":	150
+	},{
+		"type":	"tree-rainbow",
+		"posX":	450,
+		"posY":	16
+	}]
+}

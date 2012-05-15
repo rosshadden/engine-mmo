@@ -57,7 +57,7 @@
 			});
 			
 			Σ.e('map')
-			.load('home')
+			.load('graveyard')
 			.done(function(map){
 			});
 		});
