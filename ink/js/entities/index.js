@@ -1,9 +1,12 @@
 ﻿define([
+	'./sprites/index',
 	'./player'
-], function(player){
+], function(sprites, player){
 	'use strict';
 	
 	return function(Σ){
+		sprites(Σ);
+		
 		player(Σ);
 	};
 });

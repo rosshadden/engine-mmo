@@ -34,22 +34,12 @@
 		.defines({
 			load:	function(name){
 				return Σ.network.get('/maps/' + name, function(map){
-					var sheet;
-			
 					Σ.sys.clearColor = map.background.color;
 					
-					for(var resource in map.entities){
-						sheet = {};
-						
-						for(var entity in map.entities[resource]){
-							sheet[entity] = {
-								frameX:	map.entities[resource][entity].frameX,
-								frameY:	map.entities[resource][entity].frameY
-							};
-						}
-						
-						Σ.utilities.sheet(sheet, resource);
-					}
+					map.tiles.forEach(function(tile, t){
+						Σ.e(tile.type)
+						.attr(tile);
+					});
 				});
 			}
 		});
@@ -66,26 +56,9 @@
 				});
 			});
 			
-			var map = Σ.e('map');
-			
-			map.load('home')
+			Σ.e('map')
+			.load('home')
 			.done(function(map){
-				console.log('now', map);
-				Σ.e('treeGreen')
-				.attr({
-					sizeX:	64,
-					sizeY:	80,
-					posX:	50,
-					posY:	200
-				});
-				
-				Σ.e('treeRed')
-				.attr({
-					sizeX:	64,
-					sizeY:	80,
-					posX:	250,
-					posY:	200
-				});
 			});
 		});
 	};

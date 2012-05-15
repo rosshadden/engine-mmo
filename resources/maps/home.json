@@ -15,6 +15,18 @@
 	"tiles":	[{
 		"type":	"treeGreen",
 		"posX":	50,
+		"posY":	250
+	},{
+		"type":	"treeGreen",
+		"posX":	150,
+		"posY":	50
+	},{
+		"type":	"treeGreen",
+		"posX":	50,
+		"posY":	50
+	},{
+		"type":	"treeRed",
+		"posX":	200,
 		"posY":	200
 	}]
 }
