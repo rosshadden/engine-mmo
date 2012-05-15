@@ -12,23 +12,6 @@
 		"color":	"#987"
 	},
 	
-	"entities": {
-		"zelda.png": {
-			"tree":{
-				"sizeX":	64,
-				"sizeY":	80
-			},
-			
-			"treeGreen": {
-				"requires":	["tree"],
-				"sizeX":	64,
-				"sizeY":	80,
-				"frameX":	0,
-				"frameY":	0
-			}
-		}
-	},
-	
 	"tiles":	[{
 		"type":	"treeGreen",
 		"posX":	50,

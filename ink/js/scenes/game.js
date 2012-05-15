@@ -35,8 +35,6 @@
 			load:	function(name){
 				return Σ.network.get('/maps/' + name, function(map){
 					var sheet;
-					
-					console.log('map', map);
 			
 					Σ.sys.clearColor = map.background.color;
 					
@@ -58,7 +56,7 @@
 		
 		Σ.scene('game')
 		.enter(function(){
-			Σ.network.on('join', function(player){
+			Σ.network.sockets.on('join', function(player){
 				addPlayer(player);
 			});
 			
