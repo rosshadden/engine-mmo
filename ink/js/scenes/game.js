@@ -38,7 +38,8 @@
 					
 					map.tiles.forEach(function(tile, t){
 						Σ.e(tile.type)
-						.attr(tile);
+						.attr(tile)
+						.addClass('map-' + name);
 					});
 				});
 			}
