@@ -35,16 +35,16 @@
 		Σ.c('player')
 		.requires('sprite animation update flicker net characters.png')
 		.defines({
-			sizeX:	25,
-			sizeY:	25,
+			sizeX:	16,
+			sizeY:	16,
 			
-			frameX:	25,
-			frameY:	25,
+			frameX:	16,
+			frameY:	16,
 			
-			regX:	24 / 2,
-			regY:	24 / 2,
+			regX:	16 / 2,
+			regY:	16 / 2,
 			
-			speed:	4,
+			speed:	3,
 			
 			moveRequest:	function(position){
 				this.net.emit('moveRequest', position);
@@ -66,16 +66,16 @@
 			update:	function(tick){
 				var dir;
 				
-				if(this.destinationX - this.posX >= this.speed){
+				if(this.destinationX - this.posX >= this.speed - 1){
 					this.posX += this.speed;
 					dir = 'right';
-				}else if(this.destinationX - this.posX <= -this.speed){
+				}else if(this.destinationX - this.posX <= -this.speed + 1){
 					this.posX -= this.speed;
 					dir = 'left';
-				}else if(this.destinationY - this.posY >= this.speed){
+				}else if(this.destinationY - this.posY >= this.speed - 1){
 					this.posY += this.speed;
 					dir = 'down';
-				}else if(this.destinationY - this.posY <= -this.speed){
+				}else if(this.destinationY - this.posY <= -this.speed + 1){
 					this.posY -= this.speed;
 					dir = 'up';
 				}else{

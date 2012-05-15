@@ -13,20 +13,24 @@
 	},
 	
 	"tiles":	[{
-		"type":	"treeGreen",
-		"posX":	50,
-		"posY":	250
+		"type":	"grass",
+		"posX":	112,
+		"posY":	144
 	},{
-		"type":	"treeGreen",
+		"type":	"tree-green",
+		"posX":	50,
+		"posY":	50
+	},{
+		"type":	"tree-green",
 		"posX":	150,
 		"posY":	50
 	},{
-		"type":	"treeGreen",
-		"posX":	50,
-		"posY":	50
-	},{
-		"type":	"treeRed",
+		"type":	"tree-red",
 		"posX":	200,
 		"posY":	200
+	},{
+		"type":	"tree-green",
+		"posX":	50,
+		"posY":	250
 	}]
 }

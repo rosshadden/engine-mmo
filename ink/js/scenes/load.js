@@ -4,7 +4,7 @@
 	return function(Σ){
 		Σ.scene('load')
 		.enter(function(){
-			Σ.tile.sizeX = Σ.tile.sizeY = 25;
+			Σ.tile.sizeX = Σ.tile.sizeY = 16;
 			
 			Σ.load(Σ.config.assets)
 			.complete(function(){
