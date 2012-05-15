@@ -45,7 +45,7 @@
 		});
 		
 		Σ.scene('game')
-		.enter(function(){
+		.enter(function(map){
 			Σ.network.sockets.on('join', function(player){
 				addPlayer(player);
 			});
@@ -57,9 +57,12 @@
 			});
 			
 			Σ.e('map')
-			.load('graveyard')
+			.load(map)
 			.done(function(map){
 			});
+		})
+		.exit(function(){
+			console.log('Need to clean up sprites.');
 		});
 	};
 });

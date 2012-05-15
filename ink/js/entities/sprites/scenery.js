@@ -43,10 +43,6 @@
 		
 		Σ.c('tree-rainbow')
 		.requires('tree animation')
-		.defines({
-			frameX:	0,
-			frameY:	2
-		})
 		.init(function(){
 			this.animation.add('idle', [1e2, [{
 				x:	0,

@@ -8,7 +8,7 @@
 			
 			Σ.load(Σ.config.assets)
 			.complete(function(){
-				Σ.scene('game').enter();
+				Σ.scene('game').enter('home');
 			});
 		});
 	};
