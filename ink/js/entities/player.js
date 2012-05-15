@@ -33,7 +33,7 @@
 		});
 
 		Σ.c('player')
-		.requires('sprite animation update flicker net characters.png')
+		.requires('sprite animation update net characters.png')
 		.defines({
 			sizeX:	16,
 			sizeY:	16,
