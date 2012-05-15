@@ -70,7 +70,7 @@ app.get('/', function(request, response, next){
 
 ////////////////////////////////////////////////////////////////
 //	AJAX
-app.get('/maps/:path', function(request, response){
+app.all('/maps/:path', function(request, response){
 	try{
 		var map = require('./resources/maps/' + request.params.path + '.json');
 		
