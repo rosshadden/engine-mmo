@@ -33,5 +33,12 @@
 			frameX:	0,
 			frameY:	1
 		})
+		
+		Σ.c('tree-gold')
+		.requires('tree')
+		.defines({
+			frameX:	0,
+			frameY:	2
+		})
 	};
 });

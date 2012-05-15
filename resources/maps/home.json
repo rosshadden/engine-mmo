@@ -32,5 +32,9 @@
 		"type":	"tree-green",
 		"posX":	50,
 		"posY":	250
+	},{
+		"type":	"tree-gold",
+		"posX":	350,
+		"posY":	150
 	}]
 }
