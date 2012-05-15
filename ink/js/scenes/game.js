@@ -39,7 +39,7 @@
 					map.tiles.forEach(function(tile, t){
 						Σ.e(tile.type)
 						.attr(tile)
-						.addClass('map-' + name);
+						.addClass('scene-game map-' + name);
 					});
 				});
 			}
@@ -63,7 +63,7 @@
 			});
 		})
 		.exit(function(){
-			console.log('Need to clean up sprites.');
+			Σ('.scene-game').dispose();
 		});
 	};
 });
