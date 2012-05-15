@@ -48,7 +48,7 @@ app.get('/', function(request, response, next){
 			data = {
 				id:	id,
 				position: engine.players.get(id).position || {
-					x:	5,
+					x:	8,
 					y:	5
 				}
 			};

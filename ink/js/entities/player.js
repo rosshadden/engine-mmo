@@ -44,7 +44,7 @@
 			regX:	16 / 2,
 			regY:	16 / 2,
 			
-			speed:	3,
+			speed:	4,
 			
 			moveRequest:	function(position){
 				this.net.emit('moveRequest', position);
@@ -64,18 +64,22 @@
 			},
 			
 			update:	function(tick){
-				var dir;
+				var dir,
+					Δx = this.destinationX - this.posX,
+					Δy = this.destinationY - this.posY;
 				
-				if(this.destinationX - this.posX >= this.speed - 1){
+				if(Δx === 0 && Δy === 0){
+					dir = 'idle';
+				}else if(Δx > 0){
 					this.posX += this.speed;
 					dir = 'right';
-				}else if(this.destinationX - this.posX <= -this.speed + 1){
+				}else if(Δx < 0){
 					this.posX -= this.speed;
 					dir = 'left';
-				}else if(this.destinationY - this.posY >= this.speed - 1){
+				}else if(Δy > 0){
 					this.posY += this.speed;
 					dir = 'down';
-				}else if(this.destinationY - this.posY <= -this.speed + 1){
+				}else if(Δy < 0){
 					this.posY -= this.speed;
 					dir = 'up';
 				}else{
@@ -108,8 +112,6 @@
 					self.moveTo(player.position);
 				}
 			});
-			
-			self.animate('idle');
 		});
 	};
 });
