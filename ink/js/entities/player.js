@@ -112,6 +112,8 @@
 					self.moveTo(player.position);
 				}
 			});
+			
+			this.animate('idle');
 		});
 	};
 });
