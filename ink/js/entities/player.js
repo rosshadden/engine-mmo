@@ -45,17 +45,28 @@
 			regY:	16 / 2,
 			
 			speed:	4,
+
+			path:	[],
 			
 			moveRequest:	function(position){
 				this.net.emit('moveRequest', position);
 			},
 			
-			moveTo:	function(position){
-				var x = position.x,
-					y = position.y;
-				
-				this.destinationX = x * Σ.tile.sizeX + this.regX || this.posX;
-				this.destinationY = y * Σ.tile.sizeY + this.regY || this.posY;
+			setPath:	function(path){
+				console.log('path', path);
+
+				this.path = path;
+			},
+			
+			move:	function(){
+				console.log(this.path);
+				//if(this.path.length && this.path[0].x === this.destinationX && this.path[0].y === this.destinationY){
+				if(this.path.length){
+					var nextStop = this.path.shift();
+
+					this.destinationX = nextStop.x * Σ.tile.sizeX + this.regX;
+					this.destinationY = nextStop.y * Σ.tile.sizeY + this.regY;
+				}
 			},
 			
 			warp:	function(position){
@@ -63,10 +74,12 @@
 				this.posY = this.destinationY = position.y * Σ.tile.sizeY + this.regY;
 			},
 			
-			update:	function(tick){
+			update:	function(){
 				var dir,
 					Δx = this.destinationX - this.posX,
 					Δy = this.destinationY - this.posY;
+
+				this.move();
 				
 				if(Δx === 0 && Δy === 0){
 					dir = 'idle';
@@ -109,7 +122,7 @@
 			
 			self.net.on('move', function(player){
 				if(player.id === self.id){
-					self.moveTo(player.position);
+					self.setPath(player.path);
 				}
 			});
 			

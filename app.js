@@ -1,6 +1,7 @@
 var PORT = +(process.argv[2] || process.env.PORT || 3000),
 	express = require('express'),
 	routes = require('./routes'),
+	_ = require('underscore')._,
 	
 	app = express();
 	
@@ -8,6 +9,8 @@ var PORT = +(process.argv[2] || process.env.PORT || 3000),
 	app.session = new express.session.MemoryStore;
 	
 var	engine = require('./engine')(app);
+
+var maps = {};
 
 app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -37,42 +40,51 @@ app.configure('development', function(){
 
 ////////////////////////////////////////////////////////////////
 //	ROUTES
-app.get('/', function(request, response, next){
-	var id = request.sessionID;
-	
-	var onConnect = function(connectedID){
-		var data,
-			network = engine.network.with(id);
-		
-		if(connectedID === id){
-			data = {
-				id:	id,
-				position: engine.players.get(id).position || {
-					x:	8,
-					y:	5
-				}
-			};
-			
-			network.broadcast('join', data);
-			
-			data.me = true;
-			
-			network.emit('join', data);
-			
-			engine.events.emitter.removeListener('connect', onConnect);
-		}
-	};
-	
-	engine.events.emitter.on('connect', onConnect);
-	
-	next();
-}, routes.index);
+app.get('/', routes.index);
 
 ////////////////////////////////////////////////////////////////
 //	AJAX
 app.all('/maps/:path', function(request, response){
+	var map,
+		path = request.params.path;
+
 	try{
-		var map = require('./resources/maps/' + request.params.path + '.json');
+		if(maps[path]){
+			map = maps[path].map;
+		}else{
+			var tree = [
+				[0, 0, 0, 0],
+				[0, 0, 0, 0],
+				[1, 1, 1, 1],
+				[1, 1, 1, 1],
+				[0, 1, 1, 0]
+			];
+
+			var collision = _.zip(
+				[0, 0, 1, 0],
+				[1, 0, 1, 0],
+				[1, 0, 0, 0],
+				[1, 1, 1, 0],
+				[1, 1, 1, 0],
+				[0, 0, 0, 0],
+				[0, 1, 1, 1],
+				[0, 0, 1, 1],
+				[0, 0, 0, 0],
+				[1, 1, 1, 0],
+				[1, 0, 0, 0],
+				[1, 0, 1, 1],
+				[1, 0, 0, 0],
+				[1, 1, 1, 0],
+				[1, 1, 1, 0]
+			);
+
+			map = require('./resources/maps/' + path + '.json');
+
+			maps[path] = {
+				map:		map,
+				collision:	collision
+			};
+		}
 		
 		response.json(map);
 	}catch(e){
@@ -106,17 +118,60 @@ console.log("Server started on port %d [%s]", PORT, app.settings.env);
 
 ////////////////////////////////////////////////////////////////
 //	EVENTS
+engine.network.on('enterMap', function(map){
+	var id = this.handshake.sessionID,
+		player = engine.players.get(id),
+		withPlayer = engine.network.with(player);
+
+	//if(map in maps){
+		withPlayer
+		.set('map', map)
+		.emit('enterMap', true);
+	//}
+
+	if(!player.position){
+		player.position = {
+			x:	0,
+			y:	0
+		};
+	}
+	
+	var data = {
+		id:	id,
+		position: engine.players.get(id).position
+	};
+	
+	withPlayer.broadcast('join', data);
+	
+	data.me = true;
+	
+	withPlayer.emit('join', data);
+});
+
 engine.network.on('moveRequest', function(position){
-	var self = this,
-		id = self.handshake.sessionID,
+	var id = this.handshake.sessionID,
 		player = engine.players.get(id);
 
-	console.log(engine.collision);
-	
-	player.position = position;
-	
-	engine.network.emit('move', {
-		id:			id,
-		position:	position
+	engine.network.with(player)
+	.get('map', function(err, map){
+		var path;
+
+		try{
+			var graph = new engine.collision.Graph(maps[map].collision);
+			var start = graph.nodes[player.position.x][player.position.y];
+			var end = graph.nodes[position.x][position.y];
+			var path = engine.collision.astar.search(graph.nodes, start, end);
+		}catch(e){
+			path = [];
+		}
+		
+		if(path.length > 0){
+			player.position = position;
+			
+			engine.network.emit('move', {
+				id:		id,
+				path:	path
+			});
+		}
 	});
 });

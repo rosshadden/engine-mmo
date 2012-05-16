@@ -13,6 +13,7 @@
 			
 			newPlayer
 			.attr('id', player.id)
+			.addClass('scene-game')
 			.warp(player.position);
 			
 			if(player.me){
@@ -47,19 +48,22 @@
 		
 		Σ.scene('game')
 		.enter(function(map){
-			Σ.network.sockets.on('join', function(player){
-				addPlayer(player);
-			});
-			
-			Σ.network.get('/get/players', function(players){
-				players.forEach(function(player, p){
-					addPlayer(player);
+			Σ.network.sockets
+			.emit('enterMap', map)
+			.once('enterMap', function(){
+				Σ.network.get('/get/players', function(players){
+					players.forEach(function(player, p){
+						addPlayer(player);
+					});
 				});
-			});
-			
-			Σ.e('map')
-			.load(map)
-			.done(function(map){
+				
+				Σ.e('map')
+				.load(map)
+				.done(function(map){
+				});
+			})
+			.once('join', function(player){
+				addPlayer(player);
 			});
 		})
 		.exit(function(){
