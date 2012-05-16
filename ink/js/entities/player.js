@@ -94,7 +94,7 @@
 			var self = this;
 			
 			self.animation.add({
-				idle:	[1e3, [0]],
+				idle:	[0, 0],
 				up:		[200, [4, 5], -1],
 				down:	[200, [0, 1], -1],
 				left:	[200, [2, 3], -1],

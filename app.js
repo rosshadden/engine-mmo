@@ -110,6 +110,8 @@ engine.network.on('moveRequest', function(position){
 	var self = this,
 		id = self.handshake.sessionID,
 		player = engine.players.get(id);
+
+	console.log(engine.collision);
 	
 	player.position = position;
 	
