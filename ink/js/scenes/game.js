@@ -88,6 +88,9 @@
 			})
 			.once('join', function(player){
 				addPlayer(player);
+			})
+			.on('leave', function(player){
+				console.log('player', player, 'left.');
 			});
 		})
 		.exit(function(){
