@@ -3,8 +3,8 @@
 		"name":	"graveyard",
 		"description":	"Where the zombies are.",
 		"dimensions": {
-			"width":	10,
-			"height":	10
+			"width":	40,
+			"height":	40
 		}
 	},
 	
@@ -14,23 +14,23 @@
 	
 	"tiles":	[{
 		"type":	"treeGreen",
-		"posX":	150,
-		"posY":	20
+		"posX":	9,
+		"posY":	1
 	},{
 		"type":	"treeRed",
-		"posX":	200,
-		"posY":	100
+		"posX":	12,
+		"posY":	6
 	},{
 		"type":	"treeGreen",
-		"posX":	150,
-		"posY":	150
+		"posX":	9,
+		"posY":	9
 	},{
 		"type":	"treeGold",
-		"posX":	400,
-		"posY":	150
+		"posX":	25,
+		"posY":	9
 	},{
 		"type":	"treeRainbow",
-		"posX":	450,
-		"posY":	16
+		"posX":	28,
+		"posY":	1
 	}]
 }

@@ -31,21 +31,42 @@
 			}
 		};
 		
+		Σ.c('fromSheet')
+		.defines({
+			init:	function(){
+				console.log('fromSheet', this.posX);
+			}
+		});
+		
 		Σ.c('map')
 		.defines({
 			load:	function(name){
 				return Σ.network.get('/maps/' + name, function(map){
 					require(['/entities/scenery'], function(entities){
+						var current, component;
+
 						Σ.sys.clearColor = map.background.color;
 
 						for(var entity in entities){
-							Σ.c(entity)
-							.requires(entities[entity].requires)
-							.defines(entities[entity].defines)
-							.init(entities[entity].init);
+							current = entities[entity];
+
+							component = Σ.c(entity);
+
+							if(current.requires){
+								component.requires(current.requires);
+							}
+							if(current.defines){
+								component.defines(current.defines);
+							}
+							if(current.init){
+								component.init(current.init);
+							}
 						}
 						
 						map.tiles.forEach(function(tile, t){
+							tile.posX = Σ.tile.toPosX(tile.x);
+							tile.posY = Σ.tile.toPosX(tile.y);
+
 							Σ.e(tile.type)
 							.attr(tile)
 							.addClass('scene-game map-' + name);
