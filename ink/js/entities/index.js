@@ -5,7 +5,7 @@
 	'use strict';
 	
 	return function(Σ){
-		sprites(Σ);
+		//sprites(Σ);
 		
 		player(Σ);
 	};

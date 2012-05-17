@@ -35,12 +35,21 @@
 		.defines({
 			load:	function(name){
 				return Σ.network.get('/maps/' + name, function(map){
-					Σ.sys.clearColor = map.background.color;
-					
-					map.tiles.forEach(function(tile, t){
-						Σ.e(tile.type)
-						.attr(tile)
-						.addClass('scene-game map-' + name);
+					require(['/entities/scenery'], function(entities){
+						Σ.sys.clearColor = map.background.color;
+
+						for(var entity in entities){
+							Σ.c(entity)
+							.requires(entities[entity].requires)
+							.defines(entities[entity].defines)
+							.init(entities[entity].init);
+						}
+						
+						map.tiles.forEach(function(tile, t){
+							Σ.e(tile.type)
+							.attr(tile)
+							.addClass('scene-game map-' + name);
+						});
 					});
 				});
 			}
@@ -57,10 +66,7 @@
 					});
 				});
 				
-				Σ.e('map')
-				.load(map)
-				.done(function(map){
-				});
+				Σ.e('map').load(map);
 			})
 			.once('join', function(player){
 				addPlayer(player);

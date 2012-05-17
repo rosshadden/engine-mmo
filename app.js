@@ -1,7 +1,9 @@
 var PORT = +(process.argv[2] || process.env.PORT || 3000),
 	express = require('express'),
 	routes = require('./routes'),
+
 	_ = require('underscore')._,
+	r = require('requirejs'),
 	
 	app = express();
 	
@@ -44,7 +46,7 @@ app.get('/', routes.index);
 
 ////////////////////////////////////////////////////////////////
 //	AJAX
-app.all('/maps/:path', function(request, response){
+app.get('/maps/:path', function(request, response){
 	var map,
 		path = request.params.path;
 
@@ -82,6 +84,10 @@ app.all('/maps/:path', function(request, response){
 			collision[3][3] = 1;
 			collision[4][4] = 1;
 
+			/*r(['resources/entities/scenery'], function(scenery){
+				console.log('scenery', scenery);
+			});*/
+
 			maps[path] = {
 				map:		map,
 				collision:	collision
@@ -92,6 +98,17 @@ app.all('/maps/:path', function(request, response){
 	}catch(e){
 		console.log('Error: A client tried to access map "%s".', request.params.path);
 		response.send('The map you seek does not exist.', 404);
+	}
+});
+
+app.get('/entities/:entity', function(request, response){
+	var entity = request.params.entity;
+
+	try{
+		response.sendfile(__dirname + '/resources/entities/scenery.js');
+	}catch(e){
+		console.log('Error: A client tried to access resource "%s".', request.params.entity);
+		response.send('The resource you seek does not exist.', 404);
 	}
 });
 

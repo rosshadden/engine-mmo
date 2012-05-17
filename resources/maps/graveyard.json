@@ -13,23 +13,23 @@
 	},
 	
 	"tiles":	[{
-		"type":	"tree-green",
+		"type":	"treeGreen",
 		"posX":	150,
 		"posY":	20
 	},{
-		"type":	"tree-red",
+		"type":	"treeRed",
 		"posX":	200,
 		"posY":	100
 	},{
-		"type":	"tree-green",
+		"type":	"treeGreen",
 		"posX":	150,
 		"posY":	150
 	},{
-		"type":	"tree-gold",
+		"type":	"treeGold",
 		"posX":	400,
 		"posY":	150
 	},{
-		"type":	"tree-rainbow",
+		"type":	"treeRainbow",
 		"posX":	450,
 		"posY":	16
 	}]
