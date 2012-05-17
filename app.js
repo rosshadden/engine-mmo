@@ -76,17 +76,19 @@ app.get('/maps/:path', function(request, response){
 				}
 			}
 
-			map.tiles.forEach(function(tile, t){
-				//	Make collision objects.
+			r(['resources/entities/scenery'], function(entities){
+				var entity;
+
+				map.tiles.forEach(function(tile, t){
+					entity = entities[tile.type];
+
+					if(entity.defines && entity.defines.collision){
+						entity.defines.collision.forEach(function(point, p){
+							collision[point.x][point.y] = 1;
+						});
+					}
+				});
 			});
-
-			collision[2][2] = 1;
-			collision[3][3] = 1;
-			collision[4][4] = 1;
-
-			/*r(['resources/entities/scenery'], function(scenery){
-				console.log('scenery', scenery);
-			});*/
 
 			maps[path] = {
 				map:		map,
