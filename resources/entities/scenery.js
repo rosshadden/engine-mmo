@@ -19,14 +19,6 @@ define(function(){
 				sizeY:	80,
 				frameX:	0,
 				frameY:	0
-			}
-		},
-		
-		treeGreen: {
-			requires: 'tree',
-			defines: {
-				frameX:	0,
-				frameY:	0
 			},
 			collision: [{
 				x: 0,
@@ -67,6 +59,14 @@ define(function(){
 			}]
 		},
 		
+		treeGreen: {
+			requires: 'tree',
+			defines: {
+				frameX:	0,
+				frameY:	0
+			}
+		},
+		
 		treeRed: {
 			requires: 'tree',
 			defines: {
@@ -76,7 +76,7 @@ define(function(){
 		},
 		
 		treeGold: {
-			requires: 'tree fromSheet',
+			requires: 'tree',
 			defines: {
 				frameX:	0,
 				frameY:	2

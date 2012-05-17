@@ -77,13 +77,29 @@ app.get('/maps/:path', function(request, response){
 			}
 
 			r(['resources/entities/scenery'], function(entities){
-				var entity;
+				var current, requires;
+
+				for(var entity in entities){
+					current = entities[entity];
+
+					if(!current.collision && current.requires){
+						requires = current.requires.split(' ');
+
+						for(var i = 0; i < requires.length; i++){
+							if(!!entities[requires[i]] && !!entities[requires[i]].collision){
+								current.collision = entities[requires[i]].collision;
+
+								break;
+							}
+						}
+					}
+				}
 
 				map.tiles.forEach(function(tile, t){
-					entity = entities[tile.type];
+					current = entities[tile.type];
 
-					if(entity.collision){
-						entity.collision.forEach(function(point, p){
+					if(current.collision){
+						current.collision.forEach(function(point, p){
 							collision[point.x + tile.x][point.y + tile.y] = 1;
 						});
 					}
