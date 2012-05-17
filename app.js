@@ -84,7 +84,7 @@ app.get('/maps/:path', function(request, response){
 
 					if(entity.defines && entity.defines.collision){
 						entity.defines.collision.forEach(function(point, p){
-							collision[point.x][point.y] = 1;
+							collision[point.x + tile.x][point.y + tile.y] = 1;
 						});
 					}
 				});

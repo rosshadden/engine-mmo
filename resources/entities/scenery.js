@@ -76,7 +76,7 @@ define(function(){
 		},
 		
 		treeGold: {
-			requires: 'tree',
+			requires: 'tree fromSheet',
 			defines: {
 				frameX:	0,
 				frameY:	2
