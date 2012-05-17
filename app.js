@@ -54,19 +54,12 @@ app.get('/maps/:path', function(request, response){
 		if(maps[path]){
 			map = maps[path].map;
 		}else{
-			var tree = [
-				[0, 0, 0, 0],
-				[0, 0, 0, 0],
-				[1, 1, 1, 1],
-				[1, 1, 1, 1],
-				[0, 1, 1, 0]
-			];
+			var dimensions,
+				collision = [];
 
 			map = require('./resources/maps/' + path + '.json');
 
-			var collision = [];
-
-			var dimensions = map.properties.dimensions;
+			dimensions = map.properties.dimensions;
 
 			for(var x = 0; x < dimensions.width; x++){
 				collision[x] = [];
@@ -183,6 +176,10 @@ engine.network.on('enterMap', function(map){
 	data.me = true;
 	
 	withPlayer.emit('join', data);
+
+	player.events.on('unload', function(){
+		withPlayer.broadcast('leave', id);
+	});
 });
 
 engine.network.on('moveRequest', function(position){
