@@ -37,6 +37,14 @@
 		.defines({
 			sizeX:	16,
 			sizeY:	16,
+
+			posX:	0,
+			posY:	0,
+
+			destination: {
+				x: 0,
+				y: 0
+			},
 			
 			frameX:	16,
 			frameY:	16,
@@ -53,33 +61,16 @@
 			},
 			
 			setPath:	function(path){
-				//console.log('path', path);
-
 				this.path = path;
 			},
 
 			move:	function(){
-				//if(this.path.length && this.path[0].x === this.destinationX && this.path[0].y === this.destinationY){
-				if(this.path.length){
-					var nextStop = this.path.shift();
-
-					this.destinationX = nextStop.x * Σ.tile.sizeX + this.regX;
-					this.destinationY = nextStop.y * Σ.tile.sizeY + this.regY;
-				}
-			},
-			
-			warp:	function(position){
-				this.posX = this.destinationX = position.x * Σ.tile.sizeX + this.regX;
-				this.posY = this.destinationY = position.y * Σ.tile.sizeY + this.regY;
-			},
-			
-			update:	function(){
 				var dir,
-					Δx = this.destinationX - this.posX,
-					Δy = this.destinationY - this.posY;
+					x = Σ.tile.toTileX(this.posX),
+					y = Σ.tile.toTileY(this.posY),
+					Δx = this.destination.x - x,
+					Δy = this.destination.y - y;
 
-				this.move();
-				
 				if(Δx === 0 && Δy === 0){
 					dir = 'idle';
 				}else if(Δx > 0){
@@ -100,6 +91,29 @@
 
 				if(dir !== this.animation.current){
 					this.animate(dir);
+				}
+			},
+			
+			warp:	function(position){
+				this.posX = Σ.tile.toPosX(position.x) + this.regX;
+				this.posY = Σ.tile.toPosY(position.y) + this.regY;
+
+				this.destination.x = position.x;
+				this.destination.y = position.y;
+			},
+			
+			update:	function(){
+				var nextStop;
+
+				if(this.path.length > 0){
+					if(this.destination.x === Σ.tile.toTileX(this.posX) && this.destination.y === Σ.tile.toTileY(this.posY)){
+						nextStop = this.path.shift();
+
+						this.destination.x = nextStop.x;
+						this.destination.y = nextStop.y;
+					}
+
+					this.move();
 				}
 			}
 		}).init(function(){

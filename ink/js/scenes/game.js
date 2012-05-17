@@ -20,12 +20,9 @@
 				window.me = newPlayer
 				.comp('mouse')
 				.on('click', function(x, y){
-					x = ~~(x / Σ.tile.sizeX);
-					y = ~~(y / Σ.tile.sizeY);
-					
 					this.moveRequest({
-						x:	x,
-						y:	y
+						x:	~~(x / Σ.tile.sizeX),
+						y:	~~(y / Σ.tile.sizeY)
 					});
 				});
 			}
