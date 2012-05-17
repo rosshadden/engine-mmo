@@ -66,14 +66,10 @@
 
 			move:	function(){
 				var dir,
-					x = Σ.tile.toTileX(this.posX),
-					y = Σ.tile.toTileY(this.posY),
-					Δx = this.destination.x - x,
-					Δy = this.destination.y - y;
+					Δx = Σ.tile.toPosX(this.destination.x) - this.posX + this.regX,
+					Δy = Σ.tile.toPosY(this.destination.y) - this.posY + this.regY;
 
-				if(Δx === 0 && Δy === 0){
-					dir = 'idle';
-				}else if(Δx > 0){
+				if(Δx > 0){
 					this.posX += this.speed;
 					dir = 'right';
 				}else if(Δx < 0){
@@ -112,9 +108,9 @@
 						this.destination.x = nextStop.x;
 						this.destination.y = nextStop.y;
 					}
-
-					this.move();
 				}
+
+				this.move();
 			}
 		}).init(function(){
 			var self = this;
@@ -135,7 +131,7 @@
 			
 			self.net.on('move', function(player){
 				if(player.id === self.id){
-					self.setPath(player.path);
+					self.setPath(player.path.slice());
 				}
 			});
 			
