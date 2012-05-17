@@ -23,12 +23,14 @@
 		})
 		.defines({
 			animate:	function(name){
-				var animation = this.animation.list[name].slice();
-				
-				animation.push(name);
-				this.animation.current = name;
-				
-				return this.flicker.apply(this, animation);
+				if(this.animation.list[name]){
+					var animation = this.animation.list[name].slice();
+					
+					animation.push(name);
+					this.animation.current = name;
+					
+					return this.flicker.apply(this, animation);
+				}
 			}
 		});
 
@@ -82,7 +84,7 @@
 					this.posY -= this.speed;
 					dir = 'up';
 				}else{
-					dir = 'idle';
+					dir = 'stand';
 				}
 
 				if(dir !== this.animation.current){
@@ -116,7 +118,7 @@
 			var self = this;
 			
 			self.animation.add({
-				idle:	[0, 0],
+				stand:	[0, 0],
 				up:		[200, [4, 5], -1],
 				down:	[200, [0, 1], -1],
 				left:	[200, [2, 3], -1],
@@ -134,8 +136,8 @@
 					self.setPath(player.path.slice());
 				}
 			});
-			
-			this.animate('idle');
+
+			self.animate('stand');
 		});
 	};
 });
