@@ -3,12 +3,42 @@
 		"name":	"home",
 		"description":	"Where the heart is.",
 		"dimensions": {
-			"width":	24,
-			"height":	16
+			"width":	40,
+			"height":	30
 		}
 	},
+	
 	"background": {
-		"color":	"#996633"
+		"color":	"#459546"
 	},
-	"tiles":	[]
+	
+	"tiles":	[{
+		"type":	"grass",
+		"x":	7,
+		"y":	7
+	},{
+		"type":	"treeGreen",
+		"x":	3,
+		"y":	3
+	},{
+		"type":	"treeGreen",
+		"x":	9,
+		"y":	3
+	},{
+		"type":	"treeRed",
+		"x":	12,
+		"y":	12
+	},{
+		"type":	"treeGreen",
+		"x":	3,
+		"y":	15
+	},{
+		"type":	"treeGold",
+		"x":	21,
+		"y":	9
+	},{
+		"type":	"treeRainbow",
+		"x":	28,
+		"y":	20
+	}]
 }
