@@ -53,13 +53,12 @@
 			},
 			
 			setPath:	function(path){
-				console.log('path', path);
+				//console.log('path', path);
 
 				this.path = path;
 			},
-			
+
 			move:	function(){
-				console.log(this.path);
 				//if(this.path.length && this.path[0].x === this.destinationX && this.path[0].y === this.destinationY){
 				if(this.path.length){
 					var nextStop = this.path.shift();

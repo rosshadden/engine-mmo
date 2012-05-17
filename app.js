@@ -60,25 +60,27 @@ app.all('/maps/:path', function(request, response){
 				[0, 1, 1, 0]
 			];
 
-			var collision = _.zip(
-				[0, 0, 1, 0],
-				[1, 0, 1, 0],
-				[1, 0, 0, 0],
-				[1, 1, 1, 0],
-				[1, 1, 1, 0],
-				[0, 0, 0, 0],
-				[0, 1, 1, 1],
-				[0, 0, 1, 1],
-				[0, 0, 0, 0],
-				[1, 1, 1, 0],
-				[1, 0, 0, 0],
-				[1, 0, 1, 1],
-				[1, 0, 0, 0],
-				[1, 1, 1, 0],
-				[1, 1, 1, 0]
-			);
-
 			map = require('./resources/maps/' + path + '.json');
+
+			var collision = [];
+
+			var dimensions = map.properties.dimensions;
+
+			for(var x = 0; x < dimensions.width; x++){
+				collision[x] = [];
+
+				for (var y = 0; y < dimensions.height; y++){
+					collision[x][y] = 0;
+				}
+			}
+
+			map.tiles.forEach(function(tile, t){
+				//	Make collision objects.
+			});
+
+			collision[2][2] = 1;
+			collision[3][3] = 1;
+			collision[4][4] = 1;
 
 			maps[path] = {
 				map:		map,
