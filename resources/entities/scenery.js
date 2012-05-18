@@ -86,7 +86,7 @@ define(function(){
 		treeRainbow: {
 			requires: 'tree animation',
 			init: function(){
-				this.animation.add('idle', [1e2, [{
+				this.animation_add('flash', [1e2, [{
 					x:	0,
 					y:	0
 				},{
@@ -94,7 +94,7 @@ define(function(){
 					y:	1
 				}], -1]);
 				
-				this.animate('idle');
+				this.animate('flash');
 			}
 		}
 	};

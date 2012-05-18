@@ -5,16 +5,12 @@
 		Σ.c('animation')
 		.requires('flicker')
 		.namespaces({
-			current:	'',
-			
-			list:	{},
-			
 			add:	function(key, value){
 				if(Σ.is(value)){
-					this.list[key] = value;
+					this.animation_list[key] = value;
 				}else{
 					for(var item in key){
-						this.list[item] = key[item];
+						this.animation_list[item] = key[item];
 					}
 				}
 				
@@ -23,15 +19,19 @@
 		})
 		.defines({
 			animate:	function(name){
-				if(this.animation.list[name]){
-					var animation = this.animation.list[name].slice();
+				if(this.animation_list[name]){
+					var animation = this.animation_list[name].slice();
 					
 					animation.push(name);
-					this.animation.current = name;
+					this.animation_current = name;
 					
 					return this.flicker.apply(this, animation);
 				}
 			}
+		})
+		.init(function(){
+			this.animation_current = '';
+			this.animation_list = {};
 		});
 
 		Σ.c('player')
@@ -39,14 +39,6 @@
 		.defines({
 			sizeX:	16,
 			sizeY:	16,
-
-			posX:	0,
-			posY:	0,
-
-			destination: {
-				x: 0,
-				y: 0
-			},
 			
 			frameX:	16,
 			frameY:	16,
@@ -87,7 +79,7 @@
 					dir = 'stand';
 				}
 
-				if(dir !== this.animation.current){
+				if(dir !== this.animation_current){
 					this.animate(dir);
 				}
 			},
@@ -116,8 +108,16 @@
 			}
 		}).init(function(){
 			var self = this;
+
+			self.posX = 0;
+			self.posY = 0;
+
+			self.destination = {
+				x: 0,
+				y: 0
+			};
 			
-			self.animation.add({
+			self.animation_add({
 				stand:	[0, 0],
 				up:		[200, [4, 5], -1],
 				down:	[200, [0, 1], -1],
