@@ -86,7 +86,7 @@
 				
 				Σ.e('map').load(map);
 			})
-			.once('join', function(player){
+			.on('join', function(player){
 				addPlayer(player);
 			})
 			.on('leave', function(player){
@@ -95,6 +95,10 @@
 		})
 		.exit(function(){
 			Σ('.scene-game').dispose();
+
+			Σ.network.sockets
+			.off('join')
+			.off('leave');
 		});
 	};
 });
